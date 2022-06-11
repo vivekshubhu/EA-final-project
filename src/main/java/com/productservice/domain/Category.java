@@ -1,8 +1,6 @@
 package com.productservice.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,14 +10,11 @@ import java.util.List;
 @Data
 public class Category {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @OneToMany
-//    @JoinTable(name = "category_products")
+    @OneToMany(mappedBy = "category")
     private List<Product> products = new ArrayList<>();
-
-    //@TODO not working cascade
     @ManyToOne(cascade = CascadeType.ALL)
 //    @JsonIgnore
     @JoinColumn(name = "parent_id")

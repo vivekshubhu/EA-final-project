@@ -1,26 +1,39 @@
 package com.productservice.controller;
 
-import com.productservice.dto.request.CategoryDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.productservice.dto.request.ProductDto;
 import com.productservice.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
 public class ProductController {
-
     private final ProductService productService;
 
-    @PostMapping
-    public ResponseEntity<ProductDto> create(@RequestBody ProductDto productDto) {
-        productDto = productService.save(productDto);
+    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE,MediaType.MULTIPART_FORM_DATA_VALUE })
+    public ResponseEntity<ProductDto> create(@RequestPart("product") ProductDto productDto,
+                                             @RequestPart("files")List<MultipartFile> files) throws Exception {
+//        ProductDto productDto1  = new ObjectMapper().readValue(productDto, ProductDto.class);
+
+        productDto = productService.save(productDto, files);
         return ResponseEntity.ok(productDto);
+    }
+
+    @GetMapping("/{id}/images/{imageId}")
+    public ResponseEntity<byte[]> downloadImage(@PathVariable Long id, @PathVariable Long imageId) {
+        ByteArrayOutputStream downloadInputStream = productService.findImage(id,imageId);
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_PNG)
+                .body(downloadInputStream.toByteArray());
     }
 
     @GetMapping

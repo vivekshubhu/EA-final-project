@@ -1,16 +1,24 @@
 package com.productservice.dto.request;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.productservice.domain.Inventory;
+import com.productservice.domain.Photo;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+import java.util.List;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class ProductDto {
     private Long id;
     private String name;
     private String description;
     private Double price;
-    private Inventory inventory;
-//    @JsonIgnore
-    private Long categoryId;
+    private InventoryDto inventory;
+    private CategoryDto category;
+
+//    private List<Photo> photos;
+
 }
