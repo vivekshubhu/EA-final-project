@@ -18,6 +18,7 @@ public class ProductDto {
     private Double price;
     private InventoryDto inventory;
     private CategoryDto category;
+    private Long categoryId;
 
 //    private List<Photo> photos;
 

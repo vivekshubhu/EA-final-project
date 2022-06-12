@@ -1,6 +1,5 @@
 package com.productservice.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.productservice.dto.request.ProductDto;
 import com.productservice.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +21,6 @@ public class ProductController {
     @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE,MediaType.MULTIPART_FORM_DATA_VALUE })
     public ResponseEntity<ProductDto> create(@RequestPart("product") ProductDto productDto,
                                              @RequestPart("files")List<MultipartFile> files) throws Exception {
-//        ProductDto productDto1  = new ObjectMapper().readValue(productDto, ProductDto.class);
-
         productDto = productService.save(productDto, files);
         return ResponseEntity.ok(productDto);
     }
