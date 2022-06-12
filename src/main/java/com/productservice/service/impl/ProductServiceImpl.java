@@ -57,7 +57,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto save(ProductDto productDto, List<MultipartFile> files) {
         Category category = null;
-//        Long categoryId = productDto.getCategory() ==null? null : productDto.getCategory().getId();
         Long categoryId = productDto.getCategoryId();
         if(categoryId != null) {
             category = categoryRepository.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException(String.format("Category Not Found", categoryId)));
