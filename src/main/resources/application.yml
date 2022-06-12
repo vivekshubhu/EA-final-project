@@ -15,18 +15,18 @@ spring:
       max-file-size: 10MB
       max-request-size: 10MB
 
-  application:
-    name: product
-
-eureka:
-  instance:
-    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8010/eureka
-
-server:
-  port: ${PORT:0}
+#  application:
+#    name: product
+#
+#eureka:
+#  instance:
+#    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8010/eureka
+#
+#server:
+#  port: ${PORT:0}
 
 application:
   bucket:
